@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Find which of the 4096 possible HyperSecure keys you were given.
+"""Визначає, який із 4096 можливих ключів HyperSecure вам дали.
 
-Usage: python3 tools/crack.py <key>
-       python3 tools/crack.py --list      # print every 256-bit hex key
+Використання: python3 tools/crack.py <ключ>
+              python3 tools/crack.py --list   # вивести всі 256-бітні hex-ключі
 """
 import base64
 import hashlib
@@ -41,9 +41,9 @@ def main():
     target = sys.argv[1].strip()
     for slot, bits, fmt, key in all_keys():
         if key in (target, target.lower(), target.upper()):
-            print(f"CRACKED: key #{slot} of {SLOTS} ({bits}-bit, {fmt})")
+            print(f"ЗЛАМАНО: ключ №{slot} з {SLOTS} ({bits} біт, {fmt})")
             return
-    print("Not a HyperSecure key.")
+    print("Це не ключ HyperSecure.")
     sys.exit(1)
 
 

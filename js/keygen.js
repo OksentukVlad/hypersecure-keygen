@@ -2,17 +2,17 @@
  * HyperSecure™ Key Engine v3.1
  * Quantum-Hardened Multi-Layer Entropy Derivation (QHMLED)
  *
- * Runs 100% in your browser. Nothing is ever sent to a server.
+ * Працює 100% у вашому браузері. Нічого не надсилається на сервер.
  */
 
 const HyperSecure = (() => {
-  // Hardened entropy pool configuration
+  // Конфігурація захищеного пулу ентропії
   const ENTROPY_POOL_SIZE = 4096;
   const HARDENING_SALT = "HyperSecure/QHMLED/v3";
   const HARDENING_ROUNDS = 1;
 
   // ---------------------------------------------------------------
-  // Entropy collection (mouse movement, keystrokes, timing jitter)
+  // Збір ентропії (рухи миші, натискання клавіш, коливання часу)
   // ---------------------------------------------------------------
   const entropyEvents = [];
 
@@ -26,14 +26,14 @@ const HyperSecure = (() => {
   }
 
   // ---------------------------------------------------------------
-  // Pool slot selection
+  // Вибір комірки пулу
   // ---------------------------------------------------------------
   function selectPoolSlot() {
     return Math.floor(Math.random() * ENTROPY_POOL_SIZE);
   }
 
   // ---------------------------------------------------------------
-  // Quantum-hardened derivation (SHA-256 via WebCrypto)
+  // Квантово-захищена деривація (SHA-256 через WebCrypto)
   // ---------------------------------------------------------------
   async function sha256(text) {
     const data = new TextEncoder().encode(text);
@@ -51,7 +51,7 @@ const HyperSecure = (() => {
   }
 
   // ---------------------------------------------------------------
-  // Output encodings
+  // Формати виводу
   // ---------------------------------------------------------------
   const BASE32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
@@ -62,7 +62,7 @@ const HyperSecure = (() => {
     if (format === "base64") {
       return btoa(String.fromCharCode(...bytes));
     }
-    // "grouped": base32, in blocks of 5 — easy to read out loud
+    // "grouped": base32 блоками по 5 — легко читати вголос
     let bitsBuf = 0, bitCount = 0, s = "";
     for (const b of bytes) {
       bitsBuf = (bitsBuf << 8) | b;
@@ -77,7 +77,7 @@ const HyperSecure = (() => {
   }
 
   // ---------------------------------------------------------------
-  // Public API
+  // Публічний API
   // ---------------------------------------------------------------
   async function generateKey({ bits = 256, format = "hex" } = {}) {
     const slot = selectPoolSlot();

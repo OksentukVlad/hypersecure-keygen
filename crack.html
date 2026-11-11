@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HyperSecure Key Cracker</title>
+  <title>Зламувач ключів HyperSecure</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
   <style>
     :root { --bg: #0b0b0b; --card: #151515; --line: #2a2a2a; --text: #eee; --muted: #999; --red: #ff4d5e; --green: #3cf2a5; }
@@ -31,35 +31,35 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>💀 HyperSecure Key Cracker</h1>
-    <p>I read the source of <code>js/keygen.js</code> once. That was enough to precompute every key it will ever generate.</p>
+    <h1>💀 Зламувач ключів HyperSecure</h1>
+    <p>Я один раз прочитав код <code>js/keygen.js</code>. Цього вистачило, щоб заздалегідь обчислити кожен ключ, який він коли-небудь згенерує.</p>
 
     <div class="card stats">
-      <div><span>Claimed possible keys (256-bit)</span><strong class="claimed">≈ 10^77</strong></div>
-      <div><span>Actual possible keys (any size)</span><strong class="real">4,096</strong></div>
-      <div><span>Precompute status</span><strong id="status">working…</strong></div>
+      <div><span>Заявлено можливих ключів (256 біт)</span><strong class="claimed">≈ 10^77</strong></div>
+      <div><span>Насправді можливих ключів (будь-який розмір)</span><strong class="real">4 096</strong></div>
+      <div><span>Стан обчислення</span><strong id="status">обчислюємо…</strong></div>
     </div>
 
     <div class="card">
-      <label for="input">Paste a key generated on the HyperSecure site:</label>
-      <textarea id="input" placeholder="e.g. 3f1c… or ABCDE-FGHIJ-…"></textarea>
-      <button id="crack">Crack it</button>
+      <label for="input">Вставте ключ, згенерований на сайті HyperSecure:</label>
+      <textarea id="input" placeholder="напр. 3f1c… або ABCDE-FGHIJ-…"></textarea>
+      <button id="crack">Зламати</button>
       <div id="verdict"></div>
     </div>
 
     <div class="card">
-      <p style="margin-top:0">The complete table of every 256-bit hex key the site can produce:</p>
-      <div id="table">computing…</div>
-      <button id="download" class="secondary">Download all keys (every size &amp; format)</button>
+      <p style="margin-top:0">Повна таблиця всіх 256-бітних hex-ключів, які може видати сайт:</p>
+      <div id="table">обчислюємо…</div>
+      <button id="download" class="secondary">Завантажити всі ключі (усі розміри й формати)</button>
     </div>
   </div>
 
   <script>
-    // Everything here comes from reading js/keygen.js:
-    //   - ENTROPY_POOL_SIZE = 4096  -> the "random" choice is one of only 4096 slots
-    //   - the collected mouse/keyboard entropy is never used
-    //   - HARDENING_ROUNDS = 1      -> the "hardening" loop never runs
-    //   - the salt is public, so key = SHA-256("HyperSecure/QHMLED/v3:<slot>:<block>")
+    // Усе тут узято з читання js/keygen.js:
+    //   - ENTROPY_POOL_SIZE = 4096  -> "випадковий" вибір — лише одна з 4096 комірок
+    //   - зібрана ентропія миші/клавіатури ніде не використовується
+    //   - HARDENING_ROUNDS = 1      -> цикл "посилення" ніколи не виконується
+    //   - сіль публічна, тож ключ = SHA-256("HyperSecure/QHMLED/v3:<комірка>:<блок>")
     const SALT = "HyperSecure/QHMLED/v3";
     const SLOTS = 4096;
     const BASE32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
@@ -77,7 +77,7 @@
       return s.match(/.{1,5}/g).join("-");
     }
 
-    const lookup = new Map();   // key string -> description
+    const lookup = new Map();   // рядок ключа -> опис
     const lines = [];
     const all = [];
 
@@ -97,26 +97,26 @@
         lines.push(String(slot).padStart(4, "0") + "  " + hex(block0));
       }
       const ms = Math.round(performance.now() - t0);
-      document.getElementById("status").textContent = `${lookup.size.toLocaleString()} keys in ${ms} ms`;
+      document.getElementById("status").textContent = `${lookup.size.toLocaleString("uk-UA")} ключів за ${ms} мс`;
       document.getElementById("table").textContent = lines.join("\n");
     })();
 
     document.getElementById("crack").addEventListener("click", () => {
       const v = document.getElementById("input").value.trim();
       const out = document.getElementById("verdict");
-      if (!lookup.size) { out.className = "miss"; out.textContent = "Still precomputing, try again in a second."; return; }
+      if (!lookup.size) { out.className = "miss"; out.textContent = "Ще обчислюємо, спробуйте за секунду."; return; }
       const hit = lookup.get(v) || lookup.get(v.toLowerCase()) || lookup.get(v.toUpperCase());
       if (hit) {
         out.className = "hit";
-        out.textContent = `🔓 CRACKED instantly.\n\nThis is key #${hit.slot} of 4096 (${hit.bits}-bit, ${hit.fmt}).\nAnyone who read the source code already has it.`;
+        out.textContent = `🔓 ЗЛАМАНО миттєво.\n\nЦе ключ №${hit.slot} з 4096 (${hit.bits} біт, ${hit.fmt}).\nКожен, хто прочитав код, уже має цей ключ.`;
       } else {
         out.className = "miss";
-        out.textContent = "Not in the table — this key did not come from HyperSecure (or was edited).";
+        out.textContent = "Немає в таблиці — цей ключ не з HyperSecure (або його змінили).";
       }
     });
 
     document.getElementById("download").addEventListener("click", () => {
-      const blob = new Blob(["slot\tbits\tformat\tkey\n" + all.join("\n")], { type: "text/plain" });
+      const blob = new Blob(["комірка\tбіт\tформат\tключ\n" + all.join("\n")], { type: "text/plain" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "hypersecure-all-keys.tsv";

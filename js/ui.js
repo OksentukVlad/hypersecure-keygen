@@ -1,35 +1,35 @@
 (() => {
   const $ = (id) => document.getElementById(id);
 
-  // Feed the entropy pool
+  // Наповнюємо пул ентропії
   ["mousemove", "keydown", "touchmove", "click"].forEach((type) =>
     window.addEventListener(type, (e) => {
       const p = e.touches ? e.touches[0] : e;
       HyperSecure.addEntropy({ type, clientX: p.clientX || 0, clientY: p.clientY || 0 });
       const level = HyperSecure.entropyLevel();
       $("entropyBar").style.width = level + "%";
-      $("entropyPct").textContent = level >= 100 ? "100% — MAXIMUM ENTROPY" : level + "%";
+      $("entropyPct").textContent = level >= 100 ? "100% — МАКСИМАЛЬНА ЕНТРОПІЯ" : level + "%";
     }, { passive: true })
   );
 
   const STAGES = [
-    "Harvesting human entropy",
-    "Mixing quantum noise into the pool",
-    "Running 1,000,000 hardening rounds",
-    "Applying military-grade SHA-256",
-    "Verifying randomness (passed ✅)",
+    "Збираємо людську ентропію",
+    "Додаємо квантовий шум у пул",
+    "Виконуємо 1 000 000 раундів посилення",
+    "Застосовуємо SHA-256 військового рівня",
+    "Перевіряємо випадковість (успішно ✅)",
   ];
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  // 2^bits written as a power of ten, e.g. "≈ 10^77"
+  // 2^bits як степінь десяти, напр. "≈ 10^77"
   const powTen = (bits) => "≈ 10^" + Math.floor(bits * Math.log10(2));
 
   function crackTime(bits) {
-    // a trillion guesses per second
+    // трильйон спроб на секунду
     const secondsLog10 = bits * Math.log10(2) - 12;
     const yearsLog10 = secondsLog10 - Math.log10(31557600);
-    return "10^" + Math.floor(yearsLog10) + " years";
+    return "10^" + Math.floor(yearsLog10) + " років";
   }
 
   $("generate").addEventListener("click", async () => {
@@ -52,7 +52,7 @@
 
     const key = await HyperSecure.generateKey({ bits, format });
     $("key").textContent = key;
-    $("aEntropy").textContent = bits + " bits";
+    $("aEntropy").textContent = bits + " біт";
     $("aSpace").textContent = powTen(bits);
     $("aCrack").textContent = crackTime(bits);
     $("result").hidden = false;
@@ -63,10 +63,10 @@
   $("copy").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText($("key").textContent);
-      $("copy").textContent = "Copied!";
+      $("copy").textContent = "Скопійовано!";
     } catch {
-      $("copy").textContent = "Select & copy";
+      $("copy").textContent = "Виділіть і скопіюйте";
     }
-    setTimeout(() => ($("copy").textContent = "Copy"), 1500);
+    setTimeout(() => ($("copy").textContent = "Копіювати"), 1500);
   });
 })();
