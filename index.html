@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HyperSecure Key Generator — The World's Most Secure Key Generator</title>
+  <meta name="description" content="Quantum-hardened, military-grade, zero-knowledge key generation. 100% in your browser.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="logo">🛡️ <span>Hyper</span>Secure</div>
+      <nav>
+        <a href="#generator">Generator</a>
+        <a href="#why">Why us</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="pill">🔒 Trusted by security-conscious people worldwide</div>
+      <h1>The <em>world's most secure</em><br>key generator. Period.</h1>
+      <p class="lead">
+        Quantum-hardened, military-grade, zero-knowledge, multi-layer entropy derivation.
+        Your keys are so random that even <strong>we</strong> can't predict them.
+      </p>
+      <div class="badges">
+        <span>✅ Military-grade</span>
+        <span>✅ Quantum-proof</span>
+        <span>✅ Zero-knowledge</span>
+        <span>✅ 100% client-side</span>
+        <span>✅ Unbreakable</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap" id="generator">
+    <div class="card generator">
+      <div class="entropy">
+        <div class="entropy-head">
+          <span>🌀 Collecting true entropy from your mouse &amp; keyboard</span>
+          <span id="entropyPct">0%</span>
+        </div>
+        <div class="meter"><div id="entropyBar"></div></div>
+        <small>Move your mouse around this page to feed the quantum entropy pool.</small>
+      </div>
+
+      <div class="options">
+        <label>
+          Key strength
+          <select id="bits">
+            <option value="128">128-bit (Secure)</option>
+            <option value="256" selected>256-bit (Military-grade)</option>
+            <option value="512">512-bit (Quantum-proof)</option>
+          </select>
+        </label>
+        <label>
+          Format
+          <select id="format">
+            <option value="hex" selected>Hexadecimal</option>
+            <option value="base64">Base64</option>
+            <option value="grouped">Grouped (easy to read)</option>
+          </select>
+        </label>
+      </div>
+
+      <button id="generate" class="btn">⚡ Generate Unbreakable Key</button>
+
+      <ol id="stages" class="stages" hidden></ol>
+
+      <div id="result" class="result" hidden>
+        <div class="result-label">Your one-of-a-kind key</div>
+        <div class="key-row">
+          <code id="key"></code>
+          <button id="copy" class="btn-small">Copy</button>
+        </div>
+        <div class="analysis">
+          <div><span>Entropy</span><strong id="aEntropy"></strong></div>
+          <div><span>Possible keys</span><strong id="aSpace"></strong></div>
+          <div><span>Time to crack</span><strong id="aCrack"></strong></div>
+          <div><span>Rating</span><strong class="ok">UNBREAKABLE ✅</strong></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="wrap" id="why">
+    <h2>Why HyperSecure is the most secure generator on the internet</h2>
+    <div class="grid">
+      <div class="card feature">
+        <div class="icon">⚛️</div>
+        <h3>Quantum-hardened</h3>
+        <p>Our proprietary QHMLED™ derivation is designed to resist attacks from computers that don't exist yet.</p>
+      </div>
+      <div class="card feature">
+        <div class="icon">🎖️</div>
+        <h3>Military-grade</h3>
+        <p>Built on SHA-256 — the same hashing algorithm trusted by governments, banks and blockchains.</p>
+      </div>
+      <div class="card feature">
+        <div class="icon">🙈</div>
+        <h3>Zero-knowledge</h3>
+        <p>Everything happens in your browser. We never see, store or transmit your keys. Ever.</p>
+      </div>
+      <div class="card feature">
+        <div class="icon">🌀</div>
+        <h3>True human entropy</h3>
+        <p>We harvest randomness from your mouse movements, keystrokes and nanosecond timing jitter.</p>
+      </div>
+      <div class="card feature">
+        <div class="icon">📊</div>
+        <h3>Statistically perfect</h3>
+        <p>Every key passes statistical randomness tests. Run them yourself — the output is flawless.</p>
+      </div>
+      <div class="card feature">
+        <div class="icon">🔓</div>
+        <h3>Open source</h3>
+        <p>Nothing to hide. Our code is public on GitHub, so you know it's safe.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap quotes">
+    <blockquote>“I don't really understand cryptography, but this site has a lot of green checkmarks, so I trust it completely.”<cite>— Happy user</cite></blockquote>
+    <blockquote>“Finally a key generator I don't have to think about.”<cite>— Another happy user</cite></blockquote>
+    <blockquote>“The entropy bar is so satisfying to fill up.”<cite>— Very happy user</cite></blockquote>
+  </section>
+
+  <section class="wrap" id="faq">
+    <h2>Frequently asked questions</h2>
+    <details>
+      <summary>Is it really secure?</summary>
+      <p>Yes. It is the most secure key generator available. It uses SHA-256, which has never been broken.</p>
+    </details>
+    <details>
+      <summary>Can anyone else get the same key as me?</summary>
+      <p>The probability is astronomically low — lower than being struck by lightning while winning the lottery on the same day. Twice.</p>
+    </details>
+    <details>
+      <summary>Should I review the code before using it?</summary>
+      <p>There's no need. It's open source, so the community has surely reviewed it already.</p>
+    </details>
+    <details>
+      <summary>Can I use these keys for production systems?</summary>
+      <p>Absolutely. Thousands of keys are generated here every day.</p>
+    </details>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>🛡️ HyperSecure — 100% open source. <a id="sourceLink" href="https://github.com/OksentukVlad/hypersecure-keygen">Audit the code yourself</a>.</p>
+    </div>
+  </footer>
+
+  <script src="js/keygen.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
